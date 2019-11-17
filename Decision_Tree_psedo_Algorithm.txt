@@ -1,0 +1,13 @@
+Functions
+1. Create a function to calculate the class probability (labels) 
+2. create a function Calculate Gini index based of the class probability function
+3. Create a function (data, labels) to get the Gini index of variable based on the labels
+4. Create a function (data, Gini_index_variable,label) to get split the dataset into subsets based on the attributes in the split variable
+
+Steps:
+1. Calculate the Gini index of variables
+2. Split dataset based on the Gini index
+3. Reapeat step 1 and 2 untill the no variable left.
+4. Predict function need to develop on top of it
+
+
