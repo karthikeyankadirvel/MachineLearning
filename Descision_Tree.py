@@ -12,7 +12,7 @@ import os
 os.chdir(r"C:\Users\karth\JupyterProjects\MachineLearning")
 #%%
 data=pd.read_excel("data.xlsx")
-x=data[['Check_pain', 'Leg_pain', 'Kideney_pain', 'Head_ache', 'sweating']]
+x=data[['Chest_pain', 'Leg_pain', 'Kideney_pain', 'Head_ache', 'sweating']]
 y=data['Heart_disease']
 #%%
 def gini(class_prob):
@@ -61,13 +61,49 @@ def gini_variable(x,y):
         gini_v_s.update({v:gini_v})
     return gini_v_s,x_subsets_v,y_subsets_v
 #%%
+
+#%%
+gini_values_list=[]
+root_nodes=[]
+leaf_nodes=[]
+attributes=[]
 gini_values,subset,y_sub=gini_variable(x,y)  
+gini_values_list.append(gini_values)
+key_min=min(gini_values.keys(),key=(lambda k:gini_values[k]))
+root_nodes.append(key_min)
+for i1,k in zip(range(len(gini_values.keys())),gini_values.keys()):
+    if key_min==k:
+        break
+#%%
+while True:   
+    ln=[]
+    for i in range(len(x[key_min].unique())):
+        x_u=subset[i1][i].copy(deep=True)
+        y_u=y_sub[i1][i]
+        del x_u[key_min]
+        try:
+            x_u
+            gini_values,subset,y_sub=gini_variable(x_u,y)  
+            gini_values_list.append(gini_values)
+            key_min=min(gini_values.keys(),key=(lambda k:gini_values[k]))
+            root_nodes.append(key_min)
+            ln.append(key_min)
+            for i1,k in zip(range(len(gini_values.keys())),gini_values.keys()):
+                if key_min==k:
+                    break  
+        except:
+            break
+        leaf_nodes.append(ln)
+    try: 
+        x_u
+    except :
+        break
 #%%
 
-key_min=min(gini_values.keys(),key=(lambda k:gini_values[k]))
-for i in range(len(x[key_min].unique())):
-    x_u=subset[key_min][i]
-    y_u=y_sub[key_min][i]
+
+    
+    
+    
     
     
     
